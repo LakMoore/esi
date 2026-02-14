@@ -136,16 +136,22 @@ export interface PostCharactersAffiliationResponseHeaders {
   'Last-Modified'?: string
 }
 
+export type AllianceID = number
+
+export type BloodlineID = number
+
+export type RaceID = number
+
 export interface GetCharacterResponse {
-  alliance_id?: number
+  alliance_id?: AllianceID
   birthday: string
-  bloodline_id: number
-  corporation_id: number
+  bloodline_id: BloodlineID
+  corporation_id: CorporationID
   description?: string
-  faction_id?: number
-  gender: 'female' | 'male'
+  faction_id?: FactionID
+  gender: 'male' | 'female'
   name: string
-  race_id: number
+  race_id: RaceID
   security_status?: number
   title?: string
 }
@@ -2472,8 +2478,6 @@ export interface GetCorporationsNpccorpsResponseHeaders {
   ETag?: string
   'Last-Modified'?: string
 }
-
-export type AllianceID = number
 
 export type StationID = number
 

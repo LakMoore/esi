@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  id-token: write
   contents: write
 
 jobs:
@@ -16,13 +17,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      -  uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24.4.1'
+          node-version: '24.13.0'
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm install
@@ -38,8 +40,26 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: Publish with Beachball
+      - name: Bump versions with Beachball
         run: |
-          pnpm beachball publish -y --access public --branch master --token "$NPM_TOKEN" --message "chore: Release new version"
+          pnpm beachball publish -y --access public --branch master --message "chore: Release new version" --no-publish
+
+      - name: Sync with remote after version bump
+        run: git pull origin master
+
+      - name: Publish to npm with OIDC
+        run: npm publish --provenance --access public
+
+      - name: Create GitHub Release
+        run: |
+          VERSION=$(jq -r .version package.json)
+          TAG=$(jq -r '.entries[0].tag' CHANGELOG.json)
+          NOTES=$(jq -r '
+            {"major":"Major","minor":"Minor","patch":"Patches"} as $labels |
+            .entries[0].comments | to_entries | map(
+              "### \($labels[.key])\n" + (.value | map("- \(.comment)") | join("\n"))
+            ) | join("\n\n")
+          ' CHANGELOG.json)
+          gh release create "$TAG" --title "v${VERSION}" --notes "$NOTES"
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

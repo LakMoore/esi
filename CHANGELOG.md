@@ -1,8 +1,41 @@
 # Change Log - @localisprimary/esi
 
-<!-- This log was last generated on Tue, 27 Jan 2026 15:21:57 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 13 Feb 2026 19:25:57 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.0.13
+
+Fri, 13 Feb 2026 19:25:57 GMT
+
+### Patches
+
+- Fix array types (thanks @LakMoore) (atrager@ramp.com)
+
+## 2.0.12
+
+Tue, 10 Feb 2026 14:15:54 GMT
+
+### Patches
+
+- fix readme generation (hello@adamtrager.com)
+
+## 2.0.11
+
+Tue, 10 Feb 2026 13:58:36 GMT
+
+### Patches
+
+- Automated: Update ESI OpenAPI schema (1719791+Nfinished@users.noreply.github.com)
+
+## 2.0.10
+
+Sat, 07 Feb 2026 18:19:00 GMT
+
+### Patches
+
+- Automated: Update ESI OpenAPI schema (patch changes detected) (1719791+Nfinished@users.noreply.github.com)
+- fix non-GET queryparams and bad response parsing (hello@adamtrager.com)
 
 ## 2.0.9
 

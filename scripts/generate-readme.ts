@@ -4,14 +4,45 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+const HTTP_METHOD_PREFIX = /(post|get|put|patch|delete)/
+
 export interface MethodInfo {
   name: string
   description: string
   apiExplorerUrl: string
 }
 
+function sortByResourceName(a: MethodInfo, b: MethodInfo): number {
+  return a.name
+    .replace(HTTP_METHOD_PREFIX, '')
+    .localeCompare(b.name.replace(HTTP_METHOD_PREFIX, ''))
+}
+
+function escapeForMarkdownTable(description: string): string {
+  return description
+    .replace(/\.?\n\n/g, '. ') // Replace paragraph breaks with period + space
+    .replace(/\n/g, ' ') // Replace remaining single newlines with space
+    .replace(/\|/g, '\\|')
+    .trim()
+}
+
+function buildMethodsTable(methods: MethodInfo[]): string {
+  const sorted = methods.toSorted(sortByResourceName)
+
+  const rows = sorted.map(method => {
+    const description = escapeForMarkdownTable(method.description)
+    return `| [\`${method.name}\`](${method.apiExplorerUrl}) | ${description} |`
+  })
+
+  return (
+    ['| Method | Description |', '|--------|-------------|', ...rows].join(
+      '\n'
+    ) + '\n'
+  )
+}
+
 /**
- * Generate README.md content with method table
+ * Generate README.md content with method table.
  */
 export function generateReadmeContent(methods: MethodInfo[]): string {
   const boilerplate = fs.readFileSync(
@@ -19,35 +50,11 @@ export function generateReadmeContent(methods: MethodInfo[]): string {
     'utf8'
   )
 
-  // Generate the methods table
-  let methodsTable = `| Method | Description
-|--------|-------------|
-`
-  const operationMethodRegex = /(post|get|put|patch|delete)/
-
-  // Add each method to the table
-  for (const method of methods.toSorted((a, b) =>
-    a.name
-      .replace(operationMethodRegex, '')
-      .localeCompare(b.name.replace(operationMethodRegex, ''))
-  )) {
-    // Clean up description to prevent table formatting issues
-    const cleanDescription = method.description
-      .replace(/\.?\n\n/g, '. ') // Replace newlines with spaces
-      .replace(/\|/g, '\\|') // Escape pipe characters
-      .trim()
-
-    methodsTable += `| [\`${method.name}\`](${method.apiExplorerUrl}) | ${cleanDescription} |\n`
-  }
-
-  // Replace template placeholders in boilerplate
-  const readme = boilerplate.replace(/{methodsTable}/g, methodsTable)
-
-  return readme
+  return boilerplate.replace(/{methodsTable}/g, buildMethodsTable(methods))
 }
 
 /**
- * Write README.md file
+ * Write README.md file.
  */
 export function writeReadme(readmeContent: string, outputPath?: string): void {
   const readmePath = outputPath || path.join(__dirname, '../README.md')
@@ -56,11 +63,12 @@ export function writeReadme(readmeContent: string, outputPath?: string): void {
 }
 
 /**
- * Main function to generate README from method information
+ * Generate and write README from method information.
  */
-export function generateReadme(methods: MethodInfo[], outputPath?: string) {
-  // Sort methods alphabetically by name
-  const sortedMethods = methods.sort((a, b) => a.name.localeCompare(b.name))
-  const readmeContent = generateReadmeContent(sortedMethods)
+export function generateReadme(
+  methods: MethodInfo[],
+  outputPath?: string
+): void {
+  const readmeContent = generateReadmeContent(methods)
   writeReadme(readmeContent, outputPath)
 }
