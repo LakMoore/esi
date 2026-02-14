@@ -97,6 +97,47 @@
       }
     },
     "schemas": {
+      "AllianceDetail": {
+        "properties": {
+          "creator_corporation_id": {
+            "$ref": "#/components/schemas/CorporationID",
+            "description": "Alliance's creator corporation ID"
+          },
+          "creator_id": {
+            "$ref": "#/components/schemas/CharacterID",
+            "description": "Alliance's creator ID"
+          },
+          "date_founded": {
+            "description": "Alliance's founding date",
+            "format": "date-time",
+            "type": "string"
+          },
+          "executor_corporation_id": {
+            "$ref": "#/components/schemas/CorporationID",
+            "description": "Alliance's executor corporation ID"
+          },
+          "faction_id": {
+            "$ref": "#/components/schemas/FactionID",
+            "description": "Alliance's faction ID"
+          },
+          "name": {
+            "description": "Alliance's name",
+            "type": "string"
+          },
+          "ticker": {
+            "description": "Alliance's ticker",
+            "type": "string"
+          }
+        },
+        "required": [
+          "creator_corporation_id",
+          "creator_id",
+          "date_founded",
+          "name",
+          "ticker"
+        ],
+        "type": "object"
+      },
       "AllianceID": {
         "examples": [
           99000001
@@ -170,50 +211,6 @@
         },
         "type": "array",
         "uniqueItems": true
-      },
-      "AlliancesAllianceIdGet": {
-        "properties": {
-          "creator_corporation_id": {
-            "description": "ID of the corporation that created the alliance",
-            "format": "int64",
-            "type": "integer"
-          },
-          "creator_id": {
-            "description": "ID of the character that created the alliance",
-            "format": "int64",
-            "type": "integer"
-          },
-          "date_founded": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "executor_corporation_id": {
-            "description": "the executor corporation ID, if this alliance is not closed",
-            "format": "int64",
-            "type": "integer"
-          },
-          "faction_id": {
-            "description": "Faction ID this alliance is fighting for, if this alliance is enlisted in factional warfare",
-            "format": "int64",
-            "type": "integer"
-          },
-          "name": {
-            "description": "the full name of the alliance",
-            "type": "string"
-          },
-          "ticker": {
-            "description": "the short name of the alliance",
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "creator_id",
-          "creator_corporation_id",
-          "ticker",
-          "date_founded"
-        ],
-        "type": "object"
       },
       "AlliancesAllianceIdIconsGet": {
         "properties": {
@@ -5260,73 +5257,6 @@
         ],
         "type": "object"
       },
-      "CorporationsCorporationIdGet": {
-        "properties": {
-          "alliance_id": {
-            "description": "ID of the alliance that corporation is a member of, if any",
-            "format": "int64",
-            "type": "integer"
-          },
-          "ceo_id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "creator_id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "date_founded": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "faction_id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "home_station_id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "member_count": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "name": {
-            "description": "the full name of the corporation",
-            "type": "string"
-          },
-          "shares": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "tax_rate": {
-            "format": "double",
-            "type": "number"
-          },
-          "ticker": {
-            "description": "the short name of the corporation",
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "war_eligible": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "name",
-          "ticker",
-          "member_count",
-          "ceo_id",
-          "tax_rate",
-          "creator_id"
-        ],
-        "type": "object"
-      },
       "CorporationsCorporationIdIconsGet": {
         "properties": {
           "px128x128": {
@@ -7796,6 +7726,79 @@
           "type": "object"
         },
         "type": "array"
+      },
+      "CorporationsDetail": {
+        "properties": {
+          "alliance_id": {
+            "$ref": "#/components/schemas/AllianceID",
+            "description": "Corporation's alliance ID"
+          },
+          "ceo_id": {
+            "$ref": "#/components/schemas/CharacterID",
+            "description": "Corporation's CEO ID"
+          },
+          "creator_id": {
+            "$ref": "#/components/schemas/CharacterID",
+            "description": "Corporation's creator ID"
+          },
+          "date_founded": {
+            "description": "Corporation's founding date",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "Corporation's description",
+            "type": "string"
+          },
+          "faction_id": {
+            "$ref": "#/components/schemas/FactionID",
+            "description": "Corporation's faction ID"
+          },
+          "home_station_id": {
+            "$ref": "#/components/schemas/StationID",
+            "description": "Corporation's home station ID"
+          },
+          "member_count": {
+            "description": "Corporation's member count",
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Corporation's name",
+            "type": "string"
+          },
+          "shares": {
+            "description": "Corporation's shares",
+            "format": "int64",
+            "type": "integer"
+          },
+          "tax_rate": {
+            "description": "Corporation's tax rate",
+            "format": "double",
+            "type": "number"
+          },
+          "ticker": {
+            "description": "Corporation's short name",
+            "type": "string"
+          },
+          "url": {
+            "description": "Corporation's URL",
+            "type": "string"
+          },
+          "war_eligible": {
+            "description": "Corporation's war eligible",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ceo_id",
+          "creator_id",
+          "member_count",
+          "name",
+          "tax_rate",
+          "ticker"
+        ],
+        "type": "object"
       },
       "CorporationsNpccorpsGet": {
         "items": {
@@ -11675,7 +11678,8 @@
             "name": "alliance_id",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/AllianceID"
+              "$ref": "#/components/schemas/AllianceID",
+              "description": "The ID of the alliance"
             }
           },
           {
@@ -11699,7 +11703,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AlliancesAllianceIdGet"
+                  "$ref": "#/components/schemas/AllianceDetail"
                 }
               }
             },
@@ -11727,11 +11731,12 @@
             "description": "Error"
           }
         },
-        "summary": "Get alliance information",
+        "summary": "Get alliance's public information",
         "tags": [
           "Alliance"
         ],
         "x-cache-age": 3600,
+        "x-cache-mode": "ttl-based",
         "x-compatibility-date": "2020-01-01"
       }
     },
@@ -18610,7 +18615,8 @@
             "name": "corporation_id",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/CorporationID"
+              "$ref": "#/components/schemas/CorporationID",
+              "description": "The ID of the corporation"
             }
           },
           {
@@ -18634,7 +18640,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CorporationsCorporationIdGet"
+                  "$ref": "#/components/schemas/CorporationsDetail"
                 }
               }
             },
@@ -18662,11 +18668,12 @@
             "description": "Error"
           }
         },
-        "summary": "Get corporation information",
+        "summary": "Get corporation's public information",
         "tags": [
           "Corporation"
         ],
         "x-cache-age": 3600,
+        "x-cache-mode": "ttl-based",
         "x-compatibility-date": "2020-01-01"
       }
     },
