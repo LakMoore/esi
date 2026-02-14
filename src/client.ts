@@ -2,11 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Types from './types.js'
 
-<<<<<<< automated/update-esi-schema-1770468708
-const COMPATIBILITY_DATE = '2026-02-07'
-=======
-const COMPATIBILITY_DATE = '2026-02-06'
->>>>>>> master
+const COMPATIBILITY_DATE = '2026-02-08'
 
 export class EsiClient {
   private readonly baseUrl: string = 'https://esi.evetech.net'
