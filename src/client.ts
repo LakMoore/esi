@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Types from './types.js'
 
-const COMPATIBILITY_DATE = '2026-02-13'
+const COMPATIBILITY_DATE = '2026-08-25'
 
 export class EsiClient {
   private readonly baseUrl: string = 'https://esi.evetech.net'
@@ -2402,7 +2402,7 @@ in the past need to be applied on top of this list to get an accurate view of th
   }
 
   /**
-   * EVE Server status
+   * Current status of the EVE Online cluster
 
    * @see https://developers.eveonline.com/api-explorer#/operations/GetStatus
    */
