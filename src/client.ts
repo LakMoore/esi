@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Types from './types.js'
 
-const COMPATIBILITY_DATE = '2026-02-13'
+const COMPATIBILITY_DATE = '2026-08-31'
 
 export class EsiClient {
   private readonly baseUrl: string = 'https://esi.evetech.net'
@@ -646,7 +646,7 @@ export class EsiClient {
   }
 
   /**
-   * Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable
+   * Get the current location of a character, including the station or structure it is docked in.
 
    * @see https://developers.eveonline.com/api-explorer#/operations/GetCharactersCharacterIdLocation
    */
@@ -864,7 +864,7 @@ export class EsiClient {
   }
 
   /**
-   * Checks if the character is currently online
+   * Get whether a character is online, and its login statistics.
 
    * @see https://developers.eveonline.com/api-explorer#/operations/GetCharactersCharacterIdOnline
    */
@@ -978,7 +978,7 @@ export class EsiClient {
   }
 
   /**
-   * Get the current ship type, name and id
+   * Get the ship a character is currently in.
 
    * @see https://developers.eveonline.com/api-explorer#/operations/GetCharactersCharacterIdShip
    */
@@ -2402,7 +2402,7 @@ in the past need to be applied on top of this list to get an accurate view of th
   }
 
   /**
-   * EVE Server status
+   * Current status of the EVE Online cluster
 
    * @see https://developers.eveonline.com/api-explorer#/operations/GetStatus
    */
