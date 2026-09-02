@@ -1005,10 +1005,16 @@ export interface GetCharacterKillmailsRecentResponseHeaders {
   'X-Pages'?: number
 }
 
+export type SolarSystemID = number
+
+export type StationID = number
+
+export type ItemID = number
+
 export interface GetCharacterLocationResponse {
-  solar_system_id: number
-  station_id?: number
-  structure_id?: number
+  solar_system_id: SolarSystemID
+  station_id?: StationID
+  structure_id?: ItemID
 }
 
 export interface GetCharacterLocationParams {
@@ -1362,16 +1368,22 @@ export type GetCharacterNotificationsResponse = {
     | 'EntosisCaptureStarted'
     | 'ExpertSystemExpired'
     | 'ExpertSystemExpiryImminent'
+    | 'FWAllianceKickCeoIndividualStandingWarning'
     | 'FWAllianceKickMsg'
+    | 'FWAllianceKickedCeoIndividualStanding'
     | 'FWAllianceWarningMsg'
     | 'FWCharKickMsg'
     | 'FWCharRankGainMsg'
     | 'FWCharRankLossMsg'
     | 'FWCharWarningMsg'
+    | 'FWCharacterKickFromCorpIndividualStandingWarning'
+    | 'FWCharacterKickedFromCorpIndividualStanding'
     | 'FWCorpJoinMsg'
     | 'FWCorpKickMsg'
     | 'FWCorpLeaveMsg'
     | 'FWCorpWarningMsg'
+    | 'FWCorporationKickCeoIndividualStandingWarning'
+    | 'FWCorporationKickedCeoIndividualStanding'
     | 'FacWarCorpJoinRequestMsg'
     | 'FacWarCorpJoinWithdrawMsg'
     | 'FacWarCorpLeaveRequestMsg'
@@ -1381,6 +1393,7 @@ export type GetCharacterNotificationsResponse = {
     | 'FacWarLPDisqualifiedKill'
     | 'FacWarLPPayoutEvent'
     | 'FacWarLPPayoutKill'
+    | 'FreelanceProjectACLDeleted'
     | 'FreelanceProjectClosed'
     | 'FreelanceProjectCompleted'
     | 'FreelanceProjectCreated'
@@ -2016,10 +2029,12 @@ export interface GetCharacterSearchResponseHeaders {
   'Last-Modified'?: string
 }
 
+export type TypeID = number
+
 export interface GetCharacterShipResponse {
-  ship_item_id: number
+  ship_item_id: ItemID
   ship_name: string
-  ship_type_id: number
+  ship_type_id: TypeID
 }
 
 export interface GetCharacterShipParams {
@@ -2031,8 +2046,6 @@ export interface GetCharacterShipResponseHeaders {
   ETag?: string
   'Last-Modified'?: string
 }
-
-export type TypeID = number
 
 export interface CharactersSkillqueueSkill {
   finish_date?: string
@@ -2144,6 +2157,8 @@ export type GetCharacterWalletJournalResponse = {
   reason: string
   ref_type:
     | 'acceleration_gate_fee'
+    | 'achievement_category_milestone_reward'
+    | 'achievement_milestone_reward'
     | 'advertisement_listing_fee'
     | 'agent_donation'
     | 'agent_location_services'
@@ -2152,6 +2167,7 @@ export type GetCharacterWalletJournalResponse = {
     | 'agent_mission_collateral_refunded'
     | 'agent_mission_reward'
     | 'agent_mission_reward_corporation_tax'
+    | 'agent_mission_security_tax'
     | 'agent_mission_time_bonus_reward'
     | 'agent_mission_time_bonus_reward_corporation_tax'
     | 'agent_security_services'
@@ -2169,6 +2185,7 @@ export type GetCharacterWalletJournalResponse = {
     | 'bounty_reimbursement'
     | 'bounty_surcharge'
     | 'brokers_fee'
+    | 'campaign_objective_isk_reward'
     | 'clone_activation'
     | 'clone_transfer'
     | 'contraband_fine'
@@ -2240,6 +2257,7 @@ export type GetCharacterWalletJournalResponse = {
     | 'gm_cash_transfer'
     | 'gm_plex_fee_refund'
     | 'industry_job_tax'
+    | 'industry_security_tax'
     | 'infrastructure_hub_maintenance'
     | 'inheritance'
     | 'insurance'
@@ -2254,6 +2272,7 @@ export type GetCharacterWalletJournalResponse = {
     | 'market_escrow'
     | 'market_fine_paid'
     | 'market_provider_tax'
+    | 'market_security_tax'
     | 'market_transaction'
     | 'medal_creation'
     | 'medal_issued'
@@ -2262,6 +2281,7 @@ export type GetCharacterWalletJournalResponse = {
     | 'mission_cost'
     | 'mission_expiration'
     | 'mission_reward'
+    | 'npc_bounty_security_tax'
     | 'office_rental_fee'
     | 'operation_bonus'
     | 'opportunity_reward'
@@ -2478,8 +2498,6 @@ export interface GetCorporationsNpccorpsResponseHeaders {
   ETag?: string
   'Last-Modified'?: string
 }
-
-export type StationID = number
 
 export interface GetCorporationResponse {
   alliance_id?: AllianceID
@@ -3152,6 +3170,7 @@ export type GetCorporationCustomsOfficesResponse = {
   standing_level: 'bad' | 'excellent' | 'good' | 'neutral' | 'terrible'
   system_id: number
   terrible_standing_tax_rate: number
+  type_id: number
 }[]
 
 export interface GetCorporationCustomsOfficesParams {
@@ -4730,6 +4749,8 @@ export type GetCorporationWalletsDivisionJournalResponse = {
   reason: string
   ref_type:
     | 'acceleration_gate_fee'
+    | 'achievement_category_milestone_reward'
+    | 'achievement_milestone_reward'
     | 'advertisement_listing_fee'
     | 'agent_donation'
     | 'agent_location_services'
@@ -4738,6 +4759,7 @@ export type GetCorporationWalletsDivisionJournalResponse = {
     | 'agent_mission_collateral_refunded'
     | 'agent_mission_reward'
     | 'agent_mission_reward_corporation_tax'
+    | 'agent_mission_security_tax'
     | 'agent_mission_time_bonus_reward'
     | 'agent_mission_time_bonus_reward_corporation_tax'
     | 'agent_security_services'
@@ -4755,6 +4777,7 @@ export type GetCorporationWalletsDivisionJournalResponse = {
     | 'bounty_reimbursement'
     | 'bounty_surcharge'
     | 'brokers_fee'
+    | 'campaign_objective_isk_reward'
     | 'clone_activation'
     | 'clone_transfer'
     | 'contraband_fine'
@@ -4826,6 +4849,7 @@ export type GetCorporationWalletsDivisionJournalResponse = {
     | 'gm_cash_transfer'
     | 'gm_plex_fee_refund'
     | 'industry_job_tax'
+    | 'industry_security_tax'
     | 'infrastructure_hub_maintenance'
     | 'inheritance'
     | 'insurance'
@@ -4840,6 +4864,7 @@ export type GetCorporationWalletsDivisionJournalResponse = {
     | 'market_escrow'
     | 'market_fine_paid'
     | 'market_provider_tax'
+    | 'market_security_tax'
     | 'market_transaction'
     | 'medal_creation'
     | 'medal_issued'
@@ -4848,6 +4873,7 @@ export type GetCorporationWalletsDivisionJournalResponse = {
     | 'mission_cost'
     | 'mission_expiration'
     | 'mission_reward'
+    | 'npc_bounty_security_tax'
     | 'office_rental_fee'
     | 'operation_bonus'
     | 'opportunity_reward'
@@ -5700,7 +5726,7 @@ export interface GetStatusResponse {
   players: number
   server_version: string
   start_time: string
-  vip?: boolean
+  vip: boolean
 }
 
 export interface GetStatusResponseHeaders {
