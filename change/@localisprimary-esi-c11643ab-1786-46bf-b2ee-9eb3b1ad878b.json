@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Automated: Update ESI OpenAPI schema",
+  "packageName": "@localisprimary/esi",
+  "email": "6624290+LakMoore@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
